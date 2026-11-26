@@ -6,5 +6,6 @@ QRCode for JavaScript – Copyright (c) 2009 Kazuhiko Arase, MIT-Lizenz.
 „QR Code“ ist eine eingetragene Marke der DENSO WAVE INCORPORATED.
 
 **Aufgaben**
-Die Aufgabenstellungen beziehen sich auf das Arbeitsheft „Technische Mathematik“ (© Bildungsverlag EINS GmbH), S. 47–49.
-Die App enthält nur die Zahlenangaben und eigene Hilfetexte, nicht die Arbeitsblätter selbst.
+Die Aufgaben beziehen sich auf das Arbeitsheft „Metalltechnik – Technische Mathematik Grundbildung“ (© Bildungsverlag EINS GmbH), S. 5–112.
+Die App enthält nur Kapitelnamen, kurze eigene Aufgabenbezeichnungen, Ergebnisse und eigene Hilfetexte, nicht die Aufgabentexte oder Abbildungen des Heftes.
+Die Schüler arbeiten mit ihrem eigenen Arbeitsheft.

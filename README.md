@@ -1,7 +1,10 @@
-# Aufgabenrallye – Volumen, Dichte & Masse
+# Aufgabenrallye – Technische Mathematik
 
-Web-App für den Unterricht in Technischer Mathematik (Arbeitsblätter S. 47–49: Volumenberechnung II, Masseberechnung I).
+Web-App für den Unterricht mit dem Arbeitsheft „Metalltechnik – Technische Mathematik Grundbildung“, Seiten 5–112.
 Die Schüler scannen einen QR-Code, geben ihre Ergebnisse ein und bekommen für jedes richtige Ergebnis Punkte. Am Beamer läuft ein Live-Ranking.
+
+Enthalten sind 61 Kapitel in 10 Bereichen mit 669 prüfbaren Ergebnissen:
+Grundrechnen, Gleichungen & Formeln, Längen & Winkel, Flächen, Volumen & Masse, Kräfte & Mechanik, Bewegung, Druck & Hydraulik, Elektrotechnik und Praxisaufgaben.
 
 ## Online stellen (GitHub Pages)
 
@@ -22,20 +25,29 @@ Die Schüler scannen einen QR-Code, geben ihre Ergebnisse ein und bekommen für 
 | Lehrkraft (Beamer) | `https://2rtvsk95n8-cpu.github.io/aufgabenrallye/lehrer.html` |
 | Schüler | QR-Code vom Beamer scannen oder Startseite öffnen und Raumcode eingeben |
 
+- **Aufgaben auswählen:** In der Lehrer-Ansicht unter „Aufgaben dieser Runde“ auf **Auswählen …** klicken.
+  Dort lassen sich ganze Bereiche („alle an/aus“), einzelne Kapitel oder über **▾** einzelne Aufgaben wählen. Mit **Übernehmen** erscheint die Auswahl sofort auf allen Handys.
 - **Der Raum bleibt erhalten.** Lädt man die Lehrer-Seite neu, gelten derselbe Raumcode und derselbe QR-Code weiter. „Neuen Raum erstellen“ erzeugt einen neuen.
 - **Neue Runde** setzt alle Punkte auf 0, der Raum bleibt.
-- **Hilfen freigeben / Lösungswege freigeben** gilt sofort auf allen Handys.
+- **Hilfen freigeben / Ergebnisse freigeben** gilt sofort auf allen Handys.
 - **Hinweis an alle** blendet einen Text auf allen Handys ein. Wer das Feld leer sendet, blendet den Hinweis wieder aus.
 - **×** neben einem Namen entfernt die Person, zum Beispiel bei einem unpassenden Namen.
 
-### Punkte (190 insgesamt)
+### Punkte
+- Jedes Ergebnis bringt 10 Punkte, eine Formel-Auswahl (Umstellen von Formeln) 5 Punkte. Ranking und Höchstpunktzahl richten sich nach der aktuellen Auswahl.
 - Volle Punktzahl gibt es für ein richtiges Ergebnis beim ersten Versuch.
-- Ein Fehlversuch kostet 20 % der Aufgabenpunkte. Hilfe 1 kostet ebenfalls 20 %, Hilfe 2 weitere 30 %.
+- Ein Fehlversuch kostet 20 % der Punkte. Hilfe 1 kostet ebenfalls 20 %, Hilfe 2 weitere 30 %.
 - Mindestens 20 % der Punkte bleiben immer.
 - Ungültige Eingaben (keine Zahl) kosten nichts.
 
+### Eingaben
+- Zahlen mit Komma oder Punkt, Brüche als `3/4` oder `2 3/8`, Winkel als `37°50'` oder Dezimalzahl, Verhältnisse als `1:4`, kleine Zahlen als `1,74e-3`.
+- Beim Erweitern und Kürzen muss der Bruch genau in der verlangten Form eingegeben werden.
+
 ### Toleranzen
-- Rechenergebnisse dürfen etwa 1,5–2 % abweichen (Rundung, π = 3,14).
+- Rechenergebnisse dürfen je nach Aufgabe etwa 0,2–1,5 % abweichen (Rundung, π = 3,14). Bei Prüfmaßen und Umrechnungen ist die Toleranz sehr klein.
+- Bei zeichnerischen Lösungen und Diagrammwerten gilt eine größere Spanne (3–5 %).
+- Wo das Buch mit g ≈ 10 m/s² rechnet, zählt auch das Ergebnis mit g = 9,81 m/s².
 - Bei Pyramidenstumpf und Kegelstumpf zählen sowohl das Ergebnis der Näherungsformel (Buch) als auch das exakte Ergebnis.
   Beim Kegelstumpf: ≈ 1,6 m³ mit Näherung, ≈ 1,19 m³ exakt.
 - Für Tabellenbuch-Werte gilt jeweils eine kleine Spanne.
