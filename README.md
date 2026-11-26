@@ -1,4 +1,4 @@
-# Rechenrallye – Volumen, Dichte & Masse
+# Aufgabenrallye – Volumen, Dichte & Masse
 
 Web-App für den Unterricht in Technischer Mathematik (Arbeitsblätter S. 47–49: Volumenberechnung II, Masseberechnung I).
 Die Schüler scannen einen QR-Code, geben ihre Ergebnisse ein und bekommen für jedes richtige Ergebnis Punkte. Am Beamer läuft ein Live-Ranking.
@@ -13,13 +13,13 @@ Die Schüler scannen einen QR-Code, geben ihre Ergebnisse ein und bekommen für 
 3. **Settings → Pages** öffnen.
    Bei *Source* „Deploy from a branch“ auswählen, bei *Branch* **main** und **/(root)** einstellen und **Save** klicken.
 4. Nach 1–2 Minuten erscheint oben auf der Pages-Seite die Adresse, zum Beispiel
-   `https://IHR-NAME.github.io/rechenrallye/`
+   `https://2rtvsk95n8-cpu.github.io/rechenrallye/`
 
 ## Im Unterricht
 
 | Wer | Adresse |
 |---|---|
-| Lehrkraft (Beamer) | `https://IHR-NAME.github.io/rechenrallye/lehrer.html` |
+| Lehrkraft (Beamer) | `https://2rtvsk95n8-cpu.github.io/rechenrallye/lehrer.html` |
 | Schüler | QR-Code vom Beamer scannen oder Startseite öffnen und Raumcode eingeben |
 
 - **Der Raum bleibt erhalten.** Lädt man die Lehrer-Seite neu, gelten derselbe Raumcode und derselbe QR-Code weiter. „Neuen Raum erstellen“ erzeugt einen neuen.
