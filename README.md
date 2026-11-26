@@ -6,20 +6,20 @@ Die Schüler scannen einen QR-Code, geben ihre Ergebnisse ein und bekommen für 
 ## Online stellen (GitHub Pages)
 
 1. Auf GitHub oben rechts **+ → New repository** wählen.
-   Name: `rechenrallye` · **Public** · „Create repository“.
+   Name: `aufgabenrallye` · **Public** · „Create repository“.
 2. Auf der neuen Seite **„uploading an existing file“** anklicken.
    Diese Dateien hineinziehen: `index.html`, `lehrer.html`, `README.md`, `HINWEISE-LIZENZEN.md`.
    Unten **„Commit changes“** klicken.
 3. **Settings → Pages** öffnen.
    Bei *Source* „Deploy from a branch“ auswählen, bei *Branch* **main** und **/(root)** einstellen und **Save** klicken.
 4. Nach 1–2 Minuten erscheint oben auf der Pages-Seite die Adresse, zum Beispiel
-   `https://2rtvsk95n8-cpu.github.io/rechenrallye/`
+   `https://2rtvsk95n8-cpu.github.io/aufgabenrallye/`
 
 ## Im Unterricht
 
 | Wer | Adresse |
 |---|---|
-| Lehrkraft (Beamer) | `https://2rtvsk95n8-cpu.github.io/rechenrallye/lehrer.html` |
+| Lehrkraft (Beamer) | `https://2rtvsk95n8-cpu.github.io/aufgabenrallye/lehrer.html` |
 | Schüler | QR-Code vom Beamer scannen oder Startseite öffnen und Raumcode eingeben |
 
 - **Der Raum bleibt erhalten.** Lädt man die Lehrer-Seite neu, gelten derselbe Raumcode und derselbe QR-Code weiter. „Neuen Raum erstellen“ erzeugt einen neuen.
