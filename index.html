@@ -251,8 +251,8 @@ textarea{font:inherit;font-size:16px;width:100%;min-height:90px;border:1.5px sol
   </div>
   <div class="card" id="pDetail"></div>
   <div class="card">
-    <h2>Fachbuch-Paket</h2>
-    <p class="small muted">Fragentexte und Musterlösungen aus Fachbuch und Löser. Die Datei bleibt nur in diesem Browser und wird im Raum an die Schüler verteilt (Fragen sofort, Lösungen erst nach „Lösungen anzeigen“).</p>
+    <h2>Aufgaben-Paket</h2>
+    <p class="small muted">Aufgabentexte (Mathe und Fachbuch), Musterlösungen aus dem Löser, Antworten und Hilfen aus dem Fachbuch. Die Datei bleibt nur in diesem Browser und wird im Raum an die Schüler verteilt (Fragen sofort, Lösungen erst nach „Lösungen anzeigen“).</p>
     <div class="row"><input type="file" id="pkgIn" accept=".json,application/json"><span class="small" id="pkgStat"></span></div>
   </div>
   <div class="card">
@@ -488,7 +488,7 @@ function teacher(){
   let cfg=Object.assign({hints:true,sol:false,resetAt:0,ban:[],msg:'',sel:DEFAULT_SEL},saved.cfg||{});
   cfg.sel=(cfg.sel||[]).map(k=>/^[mf]:/.test(k)?k:'m:'+k);
   let SEL=expandSel(cfg.sel), ST=selTasks(SEL);
-  let KEYS=null, PKG=store.get('rr_pkg');
+  let KEYS=null, PKG=store.get('rr_pkg');if(PKG&&!PKG.fachbuch)PKG={fachbuch:PKG};
   const pub=new Map(), priv=new Map(), keyCache=new Map();
   let client=null, topT=0, lastTop='', detailId=null;
 
@@ -561,13 +561,19 @@ function teacher(){
       return h?'Ansatz aus der Musterlösung: '+h.slice(0,140):'';}
     const w=a.replace(/\s+/g,' ').split(' ');return w.length>8?'Die Musterlösung beginnt so: „'+w.slice(0,7).join(' ')+' …“':'';}
   function distribute(){if(!client||!PKG)return;
-    for(const cid of fbChapters()){const q={},h={},a={};
-      for(const T of TASKS)if(T.src==='f'&&T.c.id===cid){const e=PKG[cid+'/'+T.sec+T.n];if(!e)continue;if(e.q)q[T.sec+T.n]=e.q;const hh=hint2(e,T.sec);if(hh)h[T.sec+T.n]=hh;if(e.a)a[T.sec+T.n]=e.a;}
+    const FBP=PKG.fachbuch||PKG, MQP=PKG.mathe||{};
+    for(const cid of [...new Set(ST.filter(T=>T.src==='m').map(T=>T.c.id))]){const q={};
+      for(const T of TASKS)if(T.cid==='m:'+cid){const e=MQP[T.key];if(e&&e.q)q[T.t.n]=e.q;}
+      if(Object.keys(q).length)client.pub(base+'mq/'+cid,JSON.stringify({q}),true);}
+    for(const cid of fbChapters()){const q={},h={},a={},src={},ap={};
+      for(const T of TASKS)if(T.src==='f'&&T.c.id===cid){const k=T.sec+T.n,e=FBP[cid+'/'+k];if(!e)continue;if(e.q)q[k]=e.q;
+        const hl=(Array.isArray(e.h)?e.h.slice(0,2):[]);const hh=e.src==='fb'?'':hint2(e,T.sec);if(hh)hl.push(hh);if(hl.length)h[k]=hl;
+        if(e.a){a[k]=e.a;if(e.src)src[k]=e.src;if(e.ap)ap[k]=e.ap;}}
       client.pub(base+'fq/'+cid,JSON.stringify({q,h}),true);pubFQ.add(cid);
-      if(cfg.sol){client.pub(base+'fs/'+cid,JSON.stringify({a}),true);pubFS.add(cid);}}
+      if(cfg.sol){client.pub(base+'fs/'+cid,JSON.stringify({a,src,ap}),true);pubFS.add(cid);}}
     if(!cfg.sol){for(const cid of pubFS)client.pub(base+'fs/'+cid,'',true);pubFS.clear();}}
-  function pkgStat(){$('pkgStat').textContent=PKG?'Paket geladen ('+Object.keys(PKG).length+' Einträge).':'Kein Paket geladen – Schüler sehen dann nur Seite und Nummer der Frage.';}
-  $('pkgIn').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());const d=j.fachbuch||j;if(typeof d!=='object')throw 0;PKG=d;
+  function pkgStat(){$('pkgStat').textContent=PKG?'Paket geladen ('+Object.keys(PKG.fachbuch||PKG).length+' Fachbuch-Fragen'+(PKG.mathe?', '+Object.keys(PKG.mathe).length+' Mathe-Aufgabentexte':'')+').':'Kein Paket geladen – Schüler sehen dann nur Seite und Nummer der Frage.';}
+  $('pkgIn').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const j=JSON.parse(await f.text());if(typeof j!=='object'||!j)throw 0;PKG=j.fachbuch?{fachbuch:j.fachbuch,mathe:j.mathe||{}}:{fachbuch:j};
     if(!store.set('rr_pkg',PKG))$('pkgStat').textContent='Hinweis: Paket konnte nicht dauerhaft gespeichert werden.';pkgStat();distribute();}catch(err){$('pkgStat').textContent='Die Datei ist kein gültiges Fachbuch-Paket.';}};
   pkgStat();
 
@@ -629,7 +635,7 @@ function student(){
   if(me&&!me.real){me=null;}
   let cfg=Object.assign({hints:true,sol:false,resetAt:0,ban:[],msg:''},store.get(key+'_cfg')||{});
   let SEL=expandSel(cfg.sel||[]),ST=selTasks(SEL),haveCfg=!!cfg.sel;
-  const others=new Map(), FQ={}, FS={};
+  const others=new Map(), FQ={}, FS={}, MQ={};
   let client=null, top=[], skey=null, skeyPk='', view='tasks', pickPs='';
   $('jCode').textContent=ROOM;
   const save=()=>store.set(key,me);
@@ -704,16 +710,18 @@ function student(){
     $('tasks').innerHTML=html+(last?'</div></div>':'');
     for(const T of ST)if(T.src==='m')T.fields.forEach(renderField);}
   function ampCtl(T){const a=ampOf(T);return '<div class="amp" title="Hilfeampel"><button class="r'+(a==='r'?' on':'')+'" data-man="'+esc(T.key)+'" aria-label="Ich brauche Hilfe"></button><button class="y'+(a==='y'?' on':'')+'" disabled aria-label="in Arbeit"></button><button class="g'+(a==='g'?' on':'')+'" disabled aria-label="erledigt"></button><small>'+(a==='r'?'Hilfe angefordert – tippe Rot, um sie zurückzunehmen':'Rot tippen = Hilfe anfordern')+'</small></div>';}
-  function mathCard(T){const t=T.t;return '<div class="tt"><h3>'+(/^\d+$/.test(t.n)?t.n+'. Aufgabe':'Aufgaben '+esc(t.n))+'</h3><span>'+T.pts+' P</span></div><div class="given">'+esc(t.q)+'</div>'+ampCtl(T)+t.f.map(f=>'<div class="field" id="f-'+f.id+'"></div>').join('');}
-  function fbCard(T){const s=me.f[T.key]||{},q=FQ[T.c.id]?.q?.[T.sec+T.n],a=FS[T.c.id]?.a?.[T.sec+T.n],h2=FQ[T.c.id]?.h?.[T.sec+T.n];
-    const hints=['Die Antwort findest du im Fachbuch in Kapitel '+T.c.id+' „'+T.c.t+'“ (Fragen auf S. '+T.page+').'];if(h2)hints.push(h2);
+  const mqText=T=>MQ[T.c.id]?.q?.[T.t.n]||'';
+  function mathCard(T){const t=T.t,mq=mqText(T);return '<div class="tt"><h3>'+(/^\d+$/.test(t.n)?t.n+'. Aufgabe':'Aufgaben '+esc(t.n))+' · '+esc(t.q)+'</h3><span>'+T.pts+' P</span></div><p class="qtext" id="mq-'+esc(T.key)+'">'+esc(mq)+'</p>'+ampCtl(T)+t.f.map(f=>'<div class="field" id="f-'+f.id+'"></div>').join('');}
+  function fbCard(T){const k=T.sec+T.n,s=me.f[T.key]||{},q=FQ[T.c.id]?.q?.[k],a=FS[T.c.id]?.a?.[k],asrc=FS[T.c.id]?.src?.[k],ap=FS[T.c.id]?.ap?.[k],hx=FQ[T.c.id]?.h?.[k];
+    const hl=Array.isArray(hx)?hx.map(String):(hx?[String(hx)]:[]);
+    const hints=hl.length?hl:['Die Antwort findest du im Fachbuch in Kapitel '+T.c.id+' „'+T.c.t+'“ (Fragen auf S. '+T.page+').'];
     const used=s.h||0;let hb='';if(!s.done)for(let i=used;i<hints.length;i++)hb+='<button data-fh="'+esc(T.key)+'" '+(cfg.hints&&i===used?'':'disabled')+'>Hilfe'+(hints.length>1?' '+(i+1):'')+' · −1 P</button>';
     return '<div class="tt"><h3>'+esc(SECN[T.sec])+' · Frage '+esc(T.n)+'</h3><span>S. '+T.page+' · 10 P</span></div>'+
       (q?'<p class="qtext">'+esc(q)+'</p>':'<div class="given">Fachbuch S. '+T.page+', '+esc(SECN[T.sec])+', Frage '+esc(T.n)+'</div>')+ampCtl(T)+
       '<textarea id="ta-'+esc(T.key)+'" placeholder="Deine Antwort (oder: im Heft bearbeitet)" '+(s.done?'readonly':'')+'>'+esc(s.txt||'')+'</textarea>'+
       (s.done?'<div class="fb ok">Erledigt · +'+(s.p||0)+' P'+(s.rate?'<span>Selbstkontrolle: '+{r:'richtig',t:'teilweise richtig',f:'falsch'}[s.rate]+'</span>':'')+'</div>':'<div class="row"><button data-fdone="'+esc(T.key)+'">Fertig</button><span class="small muted">Fertig = 5 P, nach der Lösung selbst prüfen = bis zu +5 P</span></div>')+
       (used?'<ol class="htext">'+hints.slice(0,used).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol>':'')+(hb?'<div class="hints">'+hb+(cfg.hints?'':'<span class="small muted">Hilfen sind gerade gesperrt.</span>')+'</div>':'')+
-      (cfg.sol&&s.done?(a?'<div><b>Musterlösung</b><div class="ans">'+esc(a)+'</div></div>':'<p class="small muted">Für diese Frage liegt keine Musterlösung vor (z. B. bei „Zur Wiederholung“ oder Zeichnungen) – vergleiche mit dem Fachbuch oder frag nach.</p>')+
+      (cfg.sol&&s.done?(a?'<div><b>'+(asrc==='fb'?'Antwort aus dem Fachbuch'+(ap?' (S. '+(+ap)+')':''):'Musterlösung (Löser)')+'</b>'+(asrc==='fb'?'<p class="small muted" style="margin:2px 0 6px">Automatisch herausgesuchte Textstelle – vergleiche sie mit deiner Antwort und dem Buch.</p>':'')+'<div class="ans">'+esc(a)+'</div></div>':'<p class="small muted">Für diese Frage liegt keine Musterlösung vor (z. B. bei „Zur Wiederholung“ oder Zeichnungen) – vergleiche mit dem Fachbuch oder frag nach.</p>')+
         (s.rate?'':'<div class="rate"><span class="small">Wie war deine Antwort?</span><button data-rate="r" data-k="'+esc(T.key)+'">richtig (+5)</button><button data-rate="t" data-k="'+esc(T.key)+'">teilweise (+2)</button><button data-rate="f" data-k="'+esc(T.key)+'">falsch</button></div>')
         :(cfg.sol&&!s.done?'<p class="small muted">Die Lösung erscheint, sobald du auf „Fertig“ tippst.</p>':''));}
   function refreshTask(T){const el=document.getElementById('k-'+T.key);if(!el)return;
@@ -782,6 +790,8 @@ function student(){
   function onMsg(t,p){
     if(t===base+'cfg'){let c;try{c=JSON.parse(p)}catch(e){return}if(!c||(haveCfg&&cfg.v&&(c.v||0)<cfg.v))return;applyCfg(c);return;}
     if(t===base+'top'){try{const x=JSON.parse(p);top=Array.isArray(x)?x.slice(0,5).map(y=>({dn:String(y.dn||'').slice(0,20),p:+y.p||0})):[];}catch(e){top=[];}if(playing())header();return;}
+    if(t.startsWith(base+'mq/')){const cid=t.slice(base.length+3);let d=null;try{d=p?JSON.parse(p):null}catch(e){}MQ[cid]=d&&typeof d==='object'?d:null;
+      if(playing())for(const T of ST)if(T.src==='m'&&T.c.id===cid){const g=document.getElementById('mq-'+T.key);if(g)g.textContent=mqText(T);}return;}
     if(t.startsWith(base+'fq/')||t.startsWith(base+'fs/')){const cid=t.slice(base.length+3);let d=null;try{d=p?JSON.parse(p):null}catch(e){}
       (t.startsWith(base+'fq/')?FQ:FS)[cid]=d&&typeof d==='object'?d:null;
       if(playing())for(const T of ST)if(T.src==='f'&&T.c.id===cid)refreshTask(T);return;}
@@ -790,7 +800,7 @@ function student(){
   }
   let netT=0;
   function connect(){client=new Multi(onMsg,st=>{const on=st.some(Boolean);$('sDot').classList.toggle('on',on);if(on){$('sNet').classList.add('hide');publish();}});
-    ['cfg','top','p/+','fq/+','fs/+'].forEach(x=>client.sub(base+x));
+    ['cfg','top','p/+','fq/+','fs/+','mq/+'].forEach(x=>client.sub(base+x));
     clearTimeout(netT);netT=setTimeout(()=>{if(client&&!client.ok)$('sNet').classList.remove('hide');},10000);}
   function startGame(){$('sTop').classList.remove('hide');$('vTasks').classList.remove('hide');renderTasks();header();publish();}
   connect();

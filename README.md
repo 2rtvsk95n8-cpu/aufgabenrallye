@@ -24,7 +24,13 @@ Die Seite läuft unter `https://2rtvsk95n8-cpu.github.io/aufgabenrallye/`.
 - **Beamer:** QR-Code, **Top 5** und **Hilfeampel**. Mehr Leistungsdaten erscheinen dort nicht.
 - **Lehreransicht (privat):** Vornamen, Punkte, Hilfen, Ampel und die Antworten jeder Person. Nicht am Beamer öffnen.
 - **Hilfeampel:** Rot = Hilfe benötigt (selbst angetippt oder nach zwei falschen Ergebnissen), Gelb = in Arbeit, Grün = erledigt. Wer überall Grün hat, bekommt einen Hinweis, wer noch Hilfe braucht.
-- **Fachbuch-Paket:** Fragentexte und Musterlösungen liegen **nicht** in diesem Repository. Die Lehrkraft lädt die Datei `Fachbuch-Paket_SHK_LF1-15.json` in der privaten Lehreransicht. Die App verteilt dann die Fragen im Raum, die Musterlösungen erst nach „Lösungen anzeigen“.
+- **Aufgaben-Paket:** Aufgabentexte, Musterlösungen und Hilfen liegen **nicht** in diesem Repository. Die Lehrkraft lädt die Datei `Aufgabenrallye-Paket.json` in der privaten Lehreransicht.
+  Die App verteilt dann die Aufgabentexte und Hilfen im Raum und die Antworten erst nach „Lösungen anzeigen“.
+  Das Paket enthält:
+  - die Aufgabentexte des Mathe-Arbeitshefts und die Fragentexte des Fachbuchs;
+  - Musterlösungen aus dem Löser (Vertiefung und Berechnung);
+  - für Wiederholungsfragen eine automatisch herausgesuchte Fundstelle aus dem Fachbuch;
+  - Hilfen aus dem Fachbuch (Seite und Abschnitt, Lückentext).
 - **Der Raum bleibt erhalten.** Lädt man die Lehrer-Seite neu, gelten derselbe Raumcode und derselbe QR-Code weiter. „Neuen Raum erstellen“ erzeugt einen neuen.
 - **Neue Runde** setzt alle Punkte auf 0, der Raum bleibt.
 - **Hilfen freigeben / Lösungen anzeigen** gilt sofort auf allen Handys.
