@@ -652,7 +652,7 @@ function student(){
   /* --- Status, Ampel, Punkte --- */
   function ampOf(T){
     if(T.src==='m'){const fs=T.fields;if(fs.every(f=>me.a[f.id]?.ok))return 'g';if(me.man[T.key])return 'r';
-      if(fs.some(f=>(me.a[f.id]?.w||0)>=3&&!me.a[f.id]?.ok))return 'r';if(fs.some(f=>{const s=me.a[f.id];return s&&(s.w||s.h||s.ok||s.raw)}))return 'y';return '';}
+      if(fs.some(f=>(me.a[f.id]?.w||0)>=2&&!me.a[f.id]?.ok))return 'r';if(fs.some(f=>{const s=me.a[f.id];return s&&(s.w||s.h||s.ok||s.raw)}))return 'y';return '';}
     const s=me.f[T.key];if(me.man[T.key])return 'r';if(!s)return '';if(s.done)return s.rate==='f'||s.rate==='t'?'y':'g';if(s.txt||s.h)return 'y';return '';}
   function myPoints(){let p=0,s=0;for(const T of ST){if(T.src==='m'){for(const f of T.fields){const st=me.a[f.id];if(st?.ok){p+=st.p;s++;}}}else{const v=me.f[T.key]?.p||0;if(me.f[T.key]?.done){s++;p+=v;}}}return {p,s};}
   const nUnits=()=>ST.reduce((a,T)=>a+(T.src==='m'?T.fields.length:1),0);
