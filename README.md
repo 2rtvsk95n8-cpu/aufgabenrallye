@@ -1,22 +1,14 @@
-# Aufgabenrallye – Technische Mathematik
+# Aufgabenrallye – Mathe-Arbeitsheft und Fachbuch SHK
 
-Web-App für den Unterricht mit dem Arbeitsheft „Metalltechnik – Technische Mathematik Grundbildung“. Die Seitenangaben in der App richten sich nach der neueren Auflage der Schüler (S. 7–114, also Lösungsheft + 2).
-Die Schüler scannen einen QR-Code, geben ihre Ergebnisse ein und bekommen für jedes richtige Ergebnis Punkte. Am Beamer läuft ein Live-Ranking.
+Web-App für den Unterricht. Die Schüler scannen einen QR-Code, bearbeiten die ausgewählten Aufgaben, sammeln Punkte und helfen sich gegenseitig über die **Hilfeampel**.
 
-Enthalten sind 61 Kapitel in 10 Bereichen mit 669 prüfbaren Ergebnissen:
-Grundrechnen, Gleichungen & Formeln, Längen & Winkel, Flächen, Volumen & Masse, Kräfte & Mechanik, Bewegung, Druck & Hydraulik, Elektrotechnik und Praxisaufgaben.
+- **Mathe-Arbeitsheft** „Metalltechnik – Technische Mathematik Grundbildung“: 61 Kapitel, 669 automatisch geprüfte Ergebnisse.
+- **Fachbuch SHK Lernfelder 1–15**: 71 Kapitel mit 766 Fragen „Zur Wiederholung“, 417 „Zur Vertiefung“ und 305 „Zur Berechnung“.
+- Alle Seitenzahlen gelten für die neueren Auflagen der Schüler (Lösungsheft/6. Auflage + 2).
 
 ## Online stellen (GitHub Pages)
 
-1. Auf GitHub oben rechts **+ → New repository** wählen.
-   Name: `aufgabenrallye` · **Public** · „Create repository“.
-2. Auf der neuen Seite **„uploading an existing file“** anklicken.
-   Diese Dateien hineinziehen: `index.html`, `lehrer.html`, `README.md`, `HINWEISE-LIZENZEN.md`.
-   Unten **„Commit changes“** klicken.
-3. **Settings → Pages** öffnen.
-   Bei *Source* „Deploy from a branch“ auswählen, bei *Branch* **main** und **/(root)** einstellen und **Save** klicken.
-4. Nach 1–2 Minuten erscheint oben auf der Pages-Seite die Adresse, zum Beispiel
-   `https://2rtvsk95n8-cpu.github.io/aufgabenrallye/`
+Die Seite läuft unter `https://2rtvsk95n8-cpu.github.io/aufgabenrallye/`.
 
 ## Im Unterricht
 
@@ -25,16 +17,23 @@ Grundrechnen, Gleichungen & Formeln, Längen & Winkel, Flächen, Volumen & Masse
 | Lehrkraft (Beamer) | `https://2rtvsk95n8-cpu.github.io/aufgabenrallye/lehrer.html` |
 | Schüler | QR-Code vom Beamer scannen oder Startseite öffnen und Raumcode eingeben |
 
-- **Aufgaben auswählen:** In der Lehrer-Ansicht unter „Aufgaben dieser Runde“ auf **Auswählen …** klicken.
-  Dort lassen sich ganze Bereiche („alle an/aus“), einzelne Kapitel oder über **▾** einzelne Aufgaben wählen. Mit **Übernehmen** erscheint die Auswahl sofort auf allen Handys.
+- **Aufgaben auswählen:** Unter „Aufgaben dieser Runde“ auf **Auswählen …** klicken. Oben zwischen **Mathe-Arbeitsheft** und **Fachbuch SHK** wechseln (beides lässt sich mischen).
+  Wählbar sind ganze Bereiche bzw. Lernfelder, Kapitel, beim Fachbuch die Blöcke W/V/B und über **▾** einzelne Aufgaben.
+- **Namen:** Schüler geben einmal ihren richtigen Vornamen ein (sieht nur die Lehrkraft) und wählen ein Pseudonym aus einer festen Liste. Jede/r entscheidet selbst, ob in der Klasse der Vorname oder das Pseudonym erscheint.
+  Vorname und Punkte werden verschlüsselt übertragen; nur der Lehrer-Browser kann sie lesen.
+- **Beamer:** QR-Code, **Top 5** und **Hilfeampel**. Mehr Leistungsdaten erscheinen dort nicht.
+- **Lehreransicht (privat):** Vornamen, Punkte, Hilfen, Ampel und die Antworten jeder Person. Nicht am Beamer öffnen.
+- **Hilfeampel:** Rot = Hilfe benötigt (selbst angetippt oder nach drei Fehlversuchen), Gelb = in Arbeit, Grün = erledigt. Wer überall Grün hat, bekommt einen Hinweis, wer noch Hilfe braucht.
+- **Fachbuch-Paket:** Fragentexte und Musterlösungen liegen **nicht** in diesem Repository. Die Lehrkraft lädt die Datei `Fachbuch-Paket_SHK_LF1-15.json` in der privaten Lehreransicht. Die App verteilt dann die Fragen im Raum, die Musterlösungen erst nach „Lösungen anzeigen“.
 - **Der Raum bleibt erhalten.** Lädt man die Lehrer-Seite neu, gelten derselbe Raumcode und derselbe QR-Code weiter. „Neuen Raum erstellen“ erzeugt einen neuen.
 - **Neue Runde** setzt alle Punkte auf 0, der Raum bleibt.
-- **Hilfen freigeben / Ergebnisse freigeben** gilt sofort auf allen Handys.
+- **Hilfen freigeben / Lösungen anzeigen** gilt sofort auf allen Handys.
 - **Hinweis an alle** blendet einen Text auf allen Handys ein. Wer das Feld leer sendet, blendet den Hinweis wieder aus.
 - **×** neben einem Namen entfernt die Person, zum Beispiel bei einem unpassenden Namen.
 
 ### Punkte
-- Jedes Ergebnis bringt 10 Punkte, eine Formel-Auswahl (Umstellen von Formeln) 5 Punkte. Ranking und Höchstpunktzahl richten sich nach der aktuellen Auswahl.
+- Fachbuch-Fragen: „Fertig“ = 5 P (jede Hilfe −1 P). Nach der Lösungsfreigabe prüfen die Schüler selbst: richtig +5 P, teilweise +2 P.
+- Mathe: Jedes Ergebnis bringt 10 Punkte, eine Formel-Auswahl (Umstellen von Formeln) 5 Punkte. Die Punkte richten sich nach der aktuellen Auswahl.
 - Volle Punktzahl gibt es für ein richtiges Ergebnis beim ersten Versuch.
 - Ein Fehlversuch kostet 20 % der Punkte. Hilfe 1 kostet ebenfalls 20 %, Hilfe 2 weitere 30 %.
 - Mindestens 20 % der Punkte bleiben immer.
@@ -60,8 +59,9 @@ Steht überall „–“, blockiert vermutlich die Schul-Firewall die Server. Da
 
 ## Datenschutz
 
-Auf den öffentlichen Servern sind Spitzname und Punktestand für jeden sichtbar, der den Raumcode kennt.
-Deshalb nur **Vornamen oder Spitznamen** verwenden und keine weiteren persönlichen Daten.
+Im Raum sichtbar sind nur der angezeigte Name (Pseudonym oder freiwillig der Vorname), die Ampelfarben und die Top 5.
+Der richtige Vorname, die Punkte und die Antworten werden mit dem Schlüssel des Lehrer-Browsers verschlüsselt.
+Der Schlüssel liegt nur in diesem Browser. Ein neuer Browser oder Rechner bedeutet einen neuen Raum.
 Alles andere bleibt auf dem jeweiligen Gerät: Eingaben, Fortschritt und Lösungen.
 Die Seite lädt keine externen Schriften und keine Tracker.
 
