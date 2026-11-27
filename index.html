@@ -141,7 +141,9 @@ input,select{min-height:44px;font-size:17px;border:1.5px solid var(--line);borde
 .tabs button{background:transparent;color:var(--blue);border-color:var(--line);min-height:36px;padding:4px 10px;font-size:14px}
 .tabs button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
 .amp{display:inline-flex;gap:6px;align-items:center}
-.amp button{width:34px;height:34px;min-height:34px;padding:0;border-radius:50%;border:2px solid var(--line);background:var(--paper)}
+.amp{flex-wrap:nowrap}
+.amp button{flex:0 0 34px;width:34px;height:34px;min-width:34px;max-width:34px;min-height:34px;max-height:34px;aspect-ratio:1/1;padding:0;border-radius:50%;border:2px solid var(--line);background:var(--paper);line-height:0}
+.amp small{flex:1 1 auto}
 .amp button.r.on{background:#d93025;border-color:#d93025}.amp button.y.on{background:#f2b705;border-color:#f2b705}.amp button.g.on{background:#1e8e3e;border-color:#1e8e3e}
 .amp small{color:var(--soft);font-size:13px}
 .dotc{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--tint);border:1px solid var(--line);vertical-align:middle}
