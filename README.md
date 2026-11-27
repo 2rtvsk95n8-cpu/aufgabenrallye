@@ -1,6 +1,6 @@
 # Aufgabenrallye – Technische Mathematik
 
-Web-App für den Unterricht mit dem Arbeitsheft „Metalltechnik – Technische Mathematik Grundbildung“, Seiten 5–112.
+Web-App für den Unterricht mit dem Arbeitsheft „Metalltechnik – Technische Mathematik Grundbildung“. Die Seitenangaben in der App richten sich nach der neueren Auflage der Schüler (S. 7–114, also Lösungsheft + 2).
 Die Schüler scannen einen QR-Code, geben ihre Ergebnisse ein und bekommen für jedes richtige Ergebnis Punkte. Am Beamer läuft ein Live-Ranking.
 
 Enthalten sind 61 Kapitel in 10 Bereichen mit 669 prüfbaren Ergebnissen:
